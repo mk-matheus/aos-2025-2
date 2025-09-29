@@ -6,7 +6,7 @@
     "start": "nodemon --exec babel-node ./api/index.js"
   },
   "keywords": [],
-  "author": "Ewayrton Oliveira",
+  "author": "Matheus Kauã",
   "license": "MIT",
   "type": "module",
   "description": "",
