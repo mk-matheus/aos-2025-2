@@ -1,4 +1,4 @@
-# 🧠 API de Currículo (CV) - AOS
+# 🧠 API de Currículo - (ex04-express-curriculo)
 
 ![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)
 ![Express](https://img.shields.io/badge/Express-5.x-lightgrey?logo=express)
