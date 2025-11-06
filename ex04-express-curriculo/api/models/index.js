@@ -1,11 +1,11 @@
 import Sequelize from "sequelize";
 
-import getExternalLinkModel from "./externalLink";
-import getPersonModel from "./person";
-import getResumeModel from "./resume";
-import getEducationModel from "./education";
-import getExperienceModel from "./experience";
-import getSkillModel from "./skill";
+import getExternalLinkModel from "./ExternalLink";
+import getPersonModel from "./Person";
+import getResumeModel from "./Resume";
+import getEducationModel from "./Education";
+import getExperienceModel from "./Experience";
+import getSkillModel from "./Skill";
 
 const sequelize = new Sequelize(process.env.POSTGRES_URL, {
   dialect: "postgres",
@@ -23,10 +23,10 @@ const sequelize = new Sequelize(process.env.POSTGRES_URL, {
 const models = {
   Person: getPersonModel(sequelize, Sequelize),
   ExternalLink: getExternalLinkModel(sequelize, Sequelize),
-  Resume: getResumeModel(sequelize, Sequelize), 
-  Education: getEducationModel(sequelize, Sequelize), 
-  Experience: getExperienceModel(sequelize, Sequelize), 
-  Skill: getSkillModel(sequelize, Sequelize), 
+  Resume: getResumeModel(sequelize, Sequelize),
+  Education: getEducationModel(sequelize, Sequelize),
+  Experience: getExperienceModel(sequelize, Sequelize),
+  Skill: getSkillModel(sequelize, Sequelize),
 };
 
 Object.keys(models).forEach((key) => {
