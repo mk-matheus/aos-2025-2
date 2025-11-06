@@ -6,7 +6,7 @@ import {
   updateExperienceRules,
 } from "../validators/experienceValidator";
 
-// acesse o :personId da rota pai
+// acessa o :personId da rota pai
 const router = Router({ mergeParams: true });
 
 // As rotas aqui são relativas a /people/:personId/experiences

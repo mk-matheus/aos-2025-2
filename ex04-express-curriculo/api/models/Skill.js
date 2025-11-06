@@ -1,7 +1,5 @@
-import { sequelize } from ".";
-
 const getSkillModel = (sequelize, { DataTypes }) => {
-  const Skill = sequelize.define('Skill', {
+  const Skill = sequelize.define("Skill", {
     objectId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -15,13 +13,13 @@ const getSkillModel = (sequelize, { DataTypes }) => {
     },
     level: {
       type: DataTypes.STRING,
-      allowNull: true, // ex: "Básico", "Intermediário", "Avançado", "Técnica", "Interpessoal"
+      allowNull: true,
     },
   });
 
   Skill.associate = (models) => {
     Skill.belongsTo(models.Person, {
-      foreignKey: 'personId',
+      foreignKey: "personId",
     });
   };
 

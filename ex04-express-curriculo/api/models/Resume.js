@@ -1,7 +1,5 @@
-import { sequelize } from ".";
-
 const getResumeModel = (sequelize, { DataTypes }) => {
-  const Resume = sequelize.define('Resume', {
+  const Resume = sequelize.define("Resume", {
     objectId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -21,7 +19,7 @@ const getResumeModel = (sequelize, { DataTypes }) => {
 
   Resume.associate = (models) => {
     Resume.belongsTo(models.Person, {
-      foreignKey: 'personId',
+      foreignKey: "personId",
     });
   };
 

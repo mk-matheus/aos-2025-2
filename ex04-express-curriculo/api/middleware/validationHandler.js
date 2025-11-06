@@ -8,8 +8,6 @@ const handleValidationErrors = (req, res, next) => {
     // Se houver erros, retorna 400 com o array de erros
     return res.status(400).json({ errors: errors.array() });
   }
-
-  // Se não houver erros, passa para o próximo middleware (o controlador)
   next();
 };
 

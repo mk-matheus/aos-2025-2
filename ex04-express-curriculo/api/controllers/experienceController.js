@@ -1,6 +1,5 @@
 import asyncHandler from "../utils/asyncHandler";
 
-//Assume que as rotas passarão o personId.
 // Rota: GET /people/:personId/experiences
 const getAll = asyncHandler(async (req, res) => {
   const { personId } = req.params;
@@ -42,11 +41,9 @@ const update = asyncHandler(async (req, res) => {
       returning: true,
     });
   if (affectedRows === 0) {
-    return res
-      .status(404)
-      .json({
-        error: "Experiência não encontrada ou não pertence a esta pessoa",
-      });
+    return res.status(404).json({
+      error: "Experiência não encontrada ou não pertence a esta pessoa",
+    });
   }
   return res.status(200).json(updatedExperiences[0]);
 });
@@ -63,11 +60,9 @@ const remove = asyncHandler(async (req, res) => {
   });
 
   if (deletedRows === 0) {
-    return res
-      .status(404)
-      .json({
-        error: "Experiência não encontrada ou não pertence a esta pessoa",
-      });
+    return res.status(404).json({
+      error: "Experiência não encontrada ou não pertence a esta pessoa",
+    });
   }
 
   return res.status(204).send();

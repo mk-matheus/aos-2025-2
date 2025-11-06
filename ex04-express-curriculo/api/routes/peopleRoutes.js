@@ -1,18 +1,18 @@
-// api/routes/peopleRoutes.js
 import { Router } from "express";
 import controllers from "../controllers";
 
-// ADICIONE ESTES IMPORTS AQUI:
 import handleValidationErrors from "../middleware/validationHandler";
 import {
   createPersonRules,
   updatePersonRules,
 } from "../validators/personValidator";
 
-// IMPORTAR ROTEADORES FILHOS (você já deve ter isso)
+// Imports dos roteadores filhos
 import experienceRoutes from "./experienceRoutes";
-// ... (imports dos outros filhos)
+import educationRoutes from "./educationRoutes";
 import externalLinkRoutes from "./externalLinkRoutes";
+import resumeRoutes from "./resumeRoutes";
+import skillRoutes from "./skillRoutes";
 
 const router = Router();
 
@@ -21,7 +21,6 @@ router.get("/", controllers.people.getAllPeople);
 
 router.get("/:personId", controllers.people.getPersonById);
 
-// APLIQUE AS REGRAS AQUI
 router.post(
   "/",
   createPersonRules,
@@ -29,7 +28,6 @@ router.post(
   controllers.people.createPerson
 );
 
-// APLIQUE AS REGRAS AQUI
 router.put(
   "/:personId",
   updatePersonRules,
@@ -39,9 +37,10 @@ router.put(
 
 router.delete("/:personId", controllers.people.deletePerson);
 
-// --- DELEGAÇÃO PARA ROTAS FILHAS ---
 router.use("/:personId/experiences", experienceRoutes);
-// ... (use dos outros filhos)
 router.use("/:personId/externallinks", externalLinkRoutes);
+router.use("/:personId/educations", educationRoutes);
+router.use("/:personId/resumes", resumeRoutes);
+router.use("/:personId/skills", skillRoutes);
 
 export default router;

@@ -1,7 +1,5 @@
-import { sequelize } from ".";
-
 const getExperienceModel = (sequelize, { DataTypes }) => {
-  const Experience = sequelize.define('Experience', {
+  const Experience = sequelize.define("Experience", {
     objectId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -33,7 +31,7 @@ const getExperienceModel = (sequelize, { DataTypes }) => {
 
   Experience.associate = (models) => {
     Experience.belongsTo(models.Person, {
-      foreignKey: 'personId',
+      foreignKey: "personId",
     });
   };
 
