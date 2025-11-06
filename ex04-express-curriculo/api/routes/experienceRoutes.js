@@ -22,8 +22,8 @@ router.post(
 
 router.put(
   "/:experienceId",
-  updateExperienceRules, // Roda as regras
-  handleValidationErrors, // Coleta os erros
+  updateExperienceRules,
+  handleValidationErrors,
   controllers.experience.update // Chama o controller
 );
 
