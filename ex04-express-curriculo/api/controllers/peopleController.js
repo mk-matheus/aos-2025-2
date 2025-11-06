@@ -1,4 +1,4 @@
-import asyncHandler from '../utils/asyncHandler';
+import asyncHandler from "../utils/asyncHandler";
 
 const getAllPeople = asyncHandler(async (req, res) => {
   const people = await req.context.models.Person.findAll();
@@ -6,18 +6,15 @@ const getAllPeople = asyncHandler(async (req, res) => {
 });
 
 const getPersonById = asyncHandler(async (req, res) => {
-  const person = await req.context.models.Person.findByPk(
-    req.params.personId,
-    {
-      include: [
-        req.context.models.Resume,
-        req.context.models.Education,
-        req.context.models.Experience,
-        req.context.models.Skill,
-        req.context.models.ExternalLink
-      ]
-    }
-  );
+  const person = await req.context.models.Person.findByPk(req.params.personId, {
+    include: [
+      req.context.models.Resume,
+      req.context.models.Education,
+      req.context.models.Experience,
+      req.context.models.Skill,
+      req.context.models.ExternalLink,
+    ],
+  });
 
   if (!person) {
     return res.status(404).json({ error: "Pessoa não encontrada" });
@@ -29,54 +26,51 @@ const getPersonById = asyncHandler(async (req, res) => {
 const createPerson = asyncHandler(async (req, res) => {
   const data = req.body;
 
-  const newPerson = await req.context.models.Person.create(
-    data,
-    {
-      include: [
-        req.context.models.Resume,
-        req.context.models.Education,
-        req.context.models.Experience,
-        req.context.models.Skill,
-        req.context.models.ExternalLink
-      ]
-    }
-  );
+  const newPerson = await req.context.models.Person.create(data, {
+    include: [
+      req.context.models.Resume,
+      req.context.models.Education,
+      req.context.models.Experience,
+      req.context.models.Skill,
+      req.context.models.ExternalLink,
+    ],
+  });
 
   return res.status(201).json(newPerson);
-}); 
+});
 
 const updatePerson = asyncHandler(async (req, res) => {
   const { personId } = req.params;
   const data = req.body;
 
-  const [affectedRows] = await req.context.models.Person.update(
+  const [affectedRows, updatedPeople] = await req.context.models.Person.update(
     data,
     {
-      where: { objectId: personId } 
+      where: { objectId: personId },
+      returning: true,
     }
   );
 
   if (affectedRows === 0) {
     return res.status(404).json({ error: "Pessoa não encontrada" });
   }
-  const updatedPerson = await req.context.models.Person.findByPk(personId);
-  return res.status(200).json(updatedPerson);
+
+  return res.status(200).json(updatedPeople[0]);
 });
 
 const deletePerson = asyncHandler(async (req, res) => {
   const { personId } = req.params;
 
   const deletedRows = await req.context.models.Person.destroy({
-    where: { objectId: personId }
+    where: { objectId: personId },
   });
 
   if (deletedRows === 0) {
     return res.status(404).json({ error: "Pessoa não encontrada" });
   }
 
-  return res.status(204).send(); 
+  return res.status(204).send();
 });
-
 
 export default {
   getAllPeople,

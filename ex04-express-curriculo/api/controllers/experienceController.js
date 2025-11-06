@@ -1,11 +1,11 @@
-import asyncHandler from '../utils/asyncHandler';
+import asyncHandler from "../utils/asyncHandler";
 
 //Assume que as rotas passarão o personId.
 // Rota: GET /people/:personId/experiences
 const getAll = asyncHandler(async (req, res) => {
   const { personId } = req.params;
   const experiences = await req.context.models.Experience.findAll({
-    where: { personId: personId }
+    where: { personId: personId },
   });
   return res.status(200).json(experiences);
 });
@@ -22,7 +22,7 @@ const create = asyncHandler(async (req, res) => {
 
   const dataToSave = {
     ...experienceData,
-    personId: personId 
+    personId: personId,
   };
 
   const newExperience = await req.context.models.Experience.create(dataToSave);
@@ -33,23 +33,22 @@ const create = asyncHandler(async (req, res) => {
 const update = asyncHandler(async (req, res) => {
   const { personId, experienceId } = req.params;
   const data = req.body;
-
-  const [affectedRows] = await req.context.models.Experience.update(
-    data, 
-    {
+  const [affectedRows, updatedExperiences] =
+    await req.context.models.Experience.update(data, {
       where: {
         objectId: experienceId,
-        personId: personId 
-      }
-    }
-  );
-
+        personId: personId,
+      },
+      returning: true,
+    });
   if (affectedRows === 0) {
-    return res.status(404).json({ error: "Experiência não encontrada ou não pertence a esta pessoa" });
+    return res
+      .status(404)
+      .json({
+        error: "Experiência não encontrada ou não pertence a esta pessoa",
+      });
   }
-
-  const updatedExperience = await req.context.models.Experience.findByPk(experienceId);
-  return res.status(200).json(updatedExperience);
+  return res.status(200).json(updatedExperiences[0]);
 });
 
 // Rota: DELETE /people/:personId/experiences/:experienceId
@@ -59,12 +58,16 @@ const remove = asyncHandler(async (req, res) => {
   const deletedRows = await req.context.models.Experience.destroy({
     where: {
       objectId: experienceId,
-      personId: personId
-    }
+      personId: personId,
+    },
   });
 
   if (deletedRows === 0) {
-    return res.status(404).json({ error: "Experiência não encontrada ou não pertence a esta pessoa" });
+    return res
+      .status(404)
+      .json({
+        error: "Experiência não encontrada ou não pertence a esta pessoa",
+      });
   }
 
   return res.status(204).send();
@@ -74,5 +77,5 @@ export default {
   getAll,
   create,
   update,
-  remove, 
+  remove,
 };
