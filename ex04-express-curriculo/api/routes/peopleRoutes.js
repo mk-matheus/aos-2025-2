@@ -37,7 +37,6 @@ router.put(
 
 router.delete("/:personId", controllers.people.deletePerson);
 
-// Delegacoes das "filhas"
 router.use("/:personId/experiences", experienceRoutes);
 router.use("/:personId/externallinks", externalLinkRoutes);
 router.use("/:personId/educations", educationRoutes);
