@@ -8,11 +8,8 @@ import routes from "./routes";
 const app = express();
 app.set("trust proxy", true);
 
-var corsOptions = {
-  origin: ["http://example.com", "*"],
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+//alteracao para permitir
+app.use(cors());
 
 // 2. MIDDLEWARE DE CONTEXTO
 app.use((req, res, next) => {
