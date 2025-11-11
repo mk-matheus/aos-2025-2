@@ -8,7 +8,7 @@ import routes from "./routes";
 const app = express();
 app.set("trust proxy", true);
 
-//alteracao para permitir
+//alteracao para permitir tudo
 app.use(cors());
 
 // 2. MIDDLEWARE DE CONTEXTO
